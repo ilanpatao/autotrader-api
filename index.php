@@ -61,7 +61,7 @@
 			   data-page-size="100"
                data-show-columns="true"
                data-pagination="true"
-               data-search="true">
+               data-search="true" style="display:block;">
             <thead>
             <tr>
                 <th data-field="id" data-sortable="true">ID</th>
@@ -94,8 +94,9 @@
 			// Make and loop through the request
 			while($i <= 100) {
 				$x = 0;
-				$ch = curl_init("https://www.autotrader.com/rest/searchresults/base?zip=".$zip."&listingTypes=used%2Cnew%2Ccertified&startYear=1981&numRecords=100&sortBy=derivedpriceASC&firstRecord=".$i."&endYear=2018&modelCodeList=".$model."&makeCodeList=".$make."&searchRadius=500");
+				$ch = curl_init("https://cors-anywhere.herokuapp.com/https://www.autotrader.com/rest/searchresults/sunset/base?zip=11234&startYear=1981&numRecords=100&sortBy=relevance&firstRecord=0&endYear=2019&searchRadius=10");
 				curl_setopt($ch, CURLOPT_HEADER, 0);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array('origin: http://www.autotrader.com'));
 				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 				$results = curl_exec($ch);
 				curl_close($ch);
