@@ -14,7 +14,8 @@ Build and initiate calculation on vehicle sales in your developments.
 Automate/Data capture, or scrape; and quickly find vehicles for sale and contact the owners direct.
 
 Demo:
-https://autotrader-api.herokuapp.com/
+http://dangerstudio.com/api/autotrader-api/ (updated)
+https://autotrader-api.herokuapp.com/ (no longer supported)
 
 Author:
 Ilan Patao (ilan@dangerstudio.com)
