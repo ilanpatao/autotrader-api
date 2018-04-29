@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>AutoTrader REST API Example - Ilan Patao</title>
+    <title>AutoTrader REST API Example - Ilan Patao (2018)</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Bootstrap core CSS -->
@@ -28,13 +28,13 @@
         <div class="flex-center flex-column">
             <h1 class="animated fadeIn mb-4">AutoTrader REST API Example</h1>
 
-            <h5 class="animated fadeIn mb-3">Written by: <a href="mailto:ilan@dangerstudio.com" style="text-decoration:none;">Ilan Patao</a> - 09/16/2017</h5>
+            <h5 class="animated fadeIn mb-3">Written by: <a href="mailto:ilan@dangerstudio.com" style="text-decoration:none;">Ilan Patao</a> - 09/16/2017 (Updated 04/29/2018)</h5>
 
-            <p class="animated fadeIn text-muted"></p>	
+            <p class="animated fadeIn text-muted">AutoTrader updated their EP, with that the previous API code has been broken; thanks to tips from the community I went ahead and updated my code; this sample is a simple pull for 'Ford'; you can emulate any search with this code and up to every vehicle listing on AutoTrader in real-time. (includes owner, owner type, owner e-mails and contact number).</p>	
 			
 
 		<div class="table-responsive" id="results">
-			<div class="sm-form">
+			<div class="sm-form" style="display:none;">
 				<form name="vupdate" id="vupdate" method="post" enctype="multipart/form-data" action="">
 				  <div class="form-row">
 					<div class="col-auto">
@@ -94,12 +94,32 @@
 			// Make and loop through the request
 			while($i <= 100) {
 				$x = 0;
-				$ch = curl_init("https://cors-anywhere.herokuapp.com/https://www.autotrader.com/rest/searchresults/sunset/base?zip=11234&startYear=1981&numRecords=100&sortBy=relevance&firstRecord=0&endYear=2019&searchRadius=10");
-				curl_setopt($ch, CURLOPT_HEADER, 0);
-				curl_setopt($ch, CURLOPT_HTTPHEADER, array('origin: http://www.autotrader.com'));
-				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-				$results = curl_exec($ch);
-				curl_close($ch);
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "https://www.autotrader.com/rest/searchresults/sunset/base?zip=11234&startYear=1981&numRecords=100000&sortBy=relevance&firstRecord=0&endYear=2019&modelCodeList=&makeCodeList=FORD&searchRadius=1000",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => "",
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 30,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "GET",
+  CURLOPT_HTTPHEADER => array(
+    "Cache-Control: no-cache",
+    "Postman-Token: c4df7277-e7dd-41d3-b110-c5d9f66203c6",
+    "accept: */*",
+    "accept-encoding: gzip, deflate, br",
+    "accept-language: en-US,en;q=0.9",
+    "authority: www.autotrader.com",
+    "referer: https://www.autotrader.com/cars-for-sale/searchresults.xhtml?makeCodeList=FORD&modelCodeList=&zip=11229",
+    "user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36"
+  ),
+));
+
+$results = curl_exec($curl);
+$err = curl_error($curl);
+
+curl_close($curl);
 				// Decode json response and assign variables
 				$jdata = json_decode($results);
 				$avgprice = $jdata->averagePrice;
@@ -157,7 +177,7 @@
 					Discovered <b><?PHP echo $listcount; ?></b> vehicles for sale with the highest price of <b><?PHP echo $highprice; ?></b>, the lowest price of <b><?PHP echo $lowprice; ?></b> and the average vehicle is priced at <b><?PHP echo $avgprice; ?></b>.
 				</p>
 							
-			<br>Written by: <a href="mailto:ilan@dangerstudio.com" style="text-decoration:none;">Ilan Patao</a> - 09/16/2017
+			<br>Written by: <a href="mailto:ilan@dangerstudio.com" style="text-decoration:none;">Ilan Patao</a> - 09/16/2017 (Updated 04/29/2018)
 			
 		</center>
         </div>
