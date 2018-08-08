@@ -1,0 +1,67 @@
+
+##### OSX
+.DS_Store
+
+##### Xcode
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+project.xcworkspace
+
+#### Fastlane
+fastlane/report.xml
+fastlane/test_output/*
+
+##### node.js
+node_modules
+jspm_packages
+npm-debug.log
+yarn-error.log
+
+##### Code Editor Settings
+.idea/
+.vscode/
+
+##### Android
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+/build
+/captures
+.externalNativeBuild
+
+#### Selenium
+selenium-debug.log
+test/reports/*
+test/screenshots/*
+
+### Serverless
+.serverless
+
+# Carthage
+framework/Carthage
+
+# Natrium
+ios/Example/Pods/Natrium/bin/natrium.log
+ios/Example/Pods/Natrium/bin/natrium.lock
+
+### Webpack
+.webpack
+
+### PHP
+vendor

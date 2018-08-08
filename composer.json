@@ -1,0 +1,12 @@
+{
+    "name": "sghiassy/autotrader-api",
+    "authors": [
+        {
+            "name": "Shaheen Ghiassy",
+            "email": "shaheen.ghiassy@gmail.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "^2.0"
+    }
+}
