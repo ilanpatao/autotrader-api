@@ -16,14 +16,16 @@ $template = $twig->load('index.html');
 $make = strtoupper($_POST['make']);
 $model = strtoupper($_POST['model']);
 $zip = strtoupper($_POST['zipcode']);
-$content = [];
 
 if (empty($make) || empty($model) || empty($zip)) {
     $make = "NISSAN";
     $model = "LEAF";
     $zip = "11229";
 }
+
 // Make and loop through the request
+$content = [];
+
 while ($i <= 100) {
     $x = 0;
     $curl = curl_init();
