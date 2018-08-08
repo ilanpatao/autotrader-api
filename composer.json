@@ -1,0 +1,13 @@
+{
+    "name": "ilanpatao/autotrader-api",
+    "authors": [{
+        "name": "Ilan Patao",
+        "email": "ilan@dangerstudio.com"
+    }],
+    "require": {
+        "twig/twig": "^2.0"
+    },
+    "scripts": {
+        "start": "php -S localhost:9000 index.php"
+    }
+}
