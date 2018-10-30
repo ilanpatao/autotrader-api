@@ -28,7 +28,7 @@
         <div class="flex-center flex-column">
             <h1 class="animated fadeIn mb-4">AutoTrader REST API Example</h1>
 
-            <h5 class="animated fadeIn mb-3">Written by: <a href="mailto:ilan@dangerstudio.com" style="text-decoration:none;">Ilan Patao</a> - 09/16/2017 (Updated 04/29/2018)</h5>
+            <h5 class="animated fadeIn mb-3">Written by: <a href="mailto:ilan@dangerstudio.com" style="text-decoration:none;">Ilan Patao</a> - 09/16/2017 (Updated 10/30/2018)</h5>
 
             <p class="animated fadeIn text-muted">AutoTrader updated their EP, with that the previous API code has been broken; thanks to tips from the community I went ahead and updated my code; this sample is a simple pull for 'Ford'; you can emulate any search with this code and up to every vehicle listing on AutoTrader in real-time. (includes owner, owner type, owner e-mails and contact number).</p>	
 			
@@ -71,7 +71,7 @@
 				<th data-field="trim" data-sortable="true">Trim</th>
 				<th data-field="color" data-sortable="true">Color</th>
 				<th data-field="miles" data-sortable="true">Miles</th>
-				<th data-field="type" data-sortable="true">Type</th>
+				<th data-field="type" data-sortable="true">Drive</th>
 				<th data-field="vin" data-sortable="true">VIN</th>
 				<th data-field="price" data-sortable="true">Price</th>
 				<th data-field="owner" data-sortable="true">Owner</th>
@@ -88,63 +88,79 @@
 			
 			if (empty($make) || empty($model) || empty($zip)){
 				$make = "NISSAN";
-				$model = "LEAF";
+				$model = "MAX";
 				$zip = "11229";
 			}
 			// Make and loop through the request
 			while($i <= 100) {
 				$x = 0;
-$curl = curl_init();
-
-curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://www.autotrader.com/rest/searchresults/sunset/base?zip=11234&startYear=1981&numRecords=100000&sortBy=relevance&firstRecord=0&endYear=2019&modelCodeList=&makeCodeList=FORD&searchRadius=1000",
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => "",
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 30,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => "GET",
-  CURLOPT_HTTPHEADER => array(
-    "Cache-Control: no-cache",
-    "Postman-Token: c4df7277-e7dd-41d3-b110-c5d9f66203c6",
-    "accept: */*",
-    "accept-encoding: gzip, deflate, br",
-    "accept-language: en-US,en;q=0.9",
-    "authority: www.autotrader.com",
-    "referer: https://www.autotrader.com/cars-for-sale/searchresults.xhtml?makeCodeList=FORD&modelCodeList=&zip=11229",
-    "user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36"
-  ),
-));
-
-$results = curl_exec($curl);
-$err = curl_error($curl);
-
-curl_close($curl);
+				$curl = curl_init();
+				
+				curl_setopt_array($curl, array(
+				  CURLOPT_URL => "https://www.autotrader.com/rest/searchresults/base?zip=".$zip."&makeCodeList=".$make."&modelCodeList=".$model."&startYear=1981&endYear=2019&searchRadius=10000&sellerTypes=p&maxPrice=20000&sortBy=derivedpriceASC&numRecords=20000&firstRecord=0",
+				  CURLOPT_RETURNTRANSFER => true,
+				  CURLOPT_ENCODING => "",
+				  CURLOPT_MAXREDIRS => 10,
+				  CURLOPT_TIMEOUT => 30,
+				  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+				  CURLOPT_CUSTOMREQUEST => "GET",
+				  CURLOPT_HTTPHEADER => array(
+					"Cache-Control: no-cache",
+					"Postman-Token: c4df7277-e7dd-41d3-b110-c5d9f66203c6",
+					"accept: */*",
+					"accept-encoding: gzip, deflate, br",
+					"accept-language: en-US,en;q=0.9",
+					"authority: www.autotrader.com",
+					"referer: https://www.autotrader.com/rest/searchresults/base?zip=".$zip."&makeCodeList=".$make."&modelCodeList=".$model."&startYear=1981&endYear=2019&searchRadius=10000&sellerTypes=p&maxPrice=20000&sortBy=derivedpriceASC&numRecords=20000&firstRecord=0",
+					"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36"
+				  ),
+				));
+				
+				$results = curl_exec($curl);
+				$err = curl_error($curl);
+				
+				curl_close($curl);
 				// Decode json response and assign variables
 				$jdata = json_decode($results);
-				$avgprice = $jdata->averagePrice;
-				$highprice = $jdata->highestPrice;
-				$lowprice = $jdata->lowestPrice;
-				$listcount = $jdata->matchListingCount;
 				// Build the table rows
 				foreach ($jdata->listings as $key){
-					$color = $jdata->listings[$x]->colorExteriorSimple;
-					$trim = $jdata->listings[$x]->trim;
-					$price = $jdata->listings[$x]->derivedPrice;
+					$color = $jdata->listings[$x]->specifications->interiorColor->value;
+					$price = $jdata->listings[$x]->pricingDetail->salePrice;
 					$image = $jdata->listings[$x]->imageURL;
-					$id = $jdata->listings[$x]->listingId;
-					$type = $jdata->listings[$x]->listingType;
-					$miles = $jdata->listings[$x]->maxMileage;
-					$oname = $jdata->listings[$x]->ownerName;
-					$ophone = $jdata->listings[$x]->ownerPhone;
+					$id = $jdata->listings[$x]->id;
+					$type = $jdata->listings[$x]->specifications->driveType->value;
+					$miles = $jdata->listings[$x]->specifications->mileage->value;
+					$oname = $jdata->listings[$x]->owner->name;
+					$ophone = $jdata->listings[$x]->owner->phone->value;
+					$oemail = $jdata->listings[$x]->owner->email;
 					$title = $jdata->listings[$x]->title;
 					$vin = $jdata->listings[$x]->vin;
 					$email = $jdata->listings[$x]->contactEmail;
-					$ymm = explode(" ",$title);
-					$year = $ymm[1];
-					$make = $ymm[2];
-					$model = $ymm[3];
+					$year = $jdata->listings[$x]->year;
+					$make = $jdata->listings[$x]->make;
+					$model = $jdata->listings[$x]->model;
+					$trim = $jdata->listings[$x]->style[0];
 					$x = $x + 1;
+					
+					if(empty($vin)){
+						$vin = "Not Listed";
+					}
+					
+					if(empty($drive)){
+						$drive = "Not Listed";
+					}
+					
+					if(empty($oname)){
+						$oname = "Not Listed";
+					}
+					
+					if(empty($ophone)){
+						$ophone = "Not Listed";
+					}
+					
+					if(empty($oemail)){
+						$oemail = "Not Listed";
+					}
 					
 					echo "<tr>";
 					echo "<td>" . $id . "</td>";
