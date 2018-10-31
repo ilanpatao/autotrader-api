@@ -28,9 +28,9 @@
         <div class="flex-center flex-column">
             <h1 class="animated fadeIn mb-4">AutoTrader REST API Example</h1>
 
-            <h5 class="animated fadeIn mb-3">Written by: <a href="mailto:ilan@dangerstudio.com" style="text-decoration:none;">Ilan Patao</a> - 09/16/2017 (Updated 10/30/2018)</h5>
+            <h5 class="animated fadeIn mb-3">Written by: <a href="mailto:ilan@dangerstudio.com" style="text-decoration:none;">Ilan Patao</a> - 09/16/2017 <b>(Updated 10/30/2018)</b></h5>
 
-            <p class="animated fadeIn text-muted">AutoTrader updated their EP, with that the previous API code has been broken; thanks to tips from the community I went ahead and updated my code; this sample is a simple pull for 'Ford'; you can emulate any search with this code and up to every vehicle listing on AutoTrader in real-time. (includes owner, owner type, owner e-mails and contact number).</p>	
+            <p class="animated fadeIn text-muted">AutoTrader updated their EP, with that the previous API code has been broken; thanks to tips from the community I went ahead and updated my code; this sample is a simple pull for 'Nissan Max' / Nissan Maxima; you can emulate any search with this code and up to every vehicle listing on AutoTrader in real-time. (includes owner, owner type, owner e-mails and contact number).</p>	
 			
 
 		<div class="table-responsive" id="results">
@@ -190,10 +190,11 @@
 		
 		<center>
 				<p class="animated fadeIn text-muted">
-					Discovered <b><?PHP echo $listcount; ?></b> vehicles for sale with the highest price of <b><?PHP echo $highprice; ?></b>, the lowest price of <b><?PHP echo $lowprice; ?></b> and the average vehicle is priced at <b><?PHP echo $avgprice; ?></b>.
+					<!--Discovered <b><?PHP echo $listcount; ?></b> vehicles for sale with the highest price of <b><?PHP echo $highprice; ?></b>, the lowest price of <b><?PHP echo $lowprice; ?></b> and the average vehicle is priced at <b><?PHP echo $avgprice; ?></b>.-->
 				</p>
 							
-			<br>Written by: <a href="mailto:ilan@dangerstudio.com" style="text-decoration:none;">Ilan Patao</a> - 09/16/2017 (Updated 04/29/2018)
+			<br>
+			Written by: <a href="mailto:ilan@dangerstudio.com" style="text-decoration:none;">Ilan Patao</a> - 09/16/2017 (Updated 10/30/2018)
 			
 		</center>
         </div>
